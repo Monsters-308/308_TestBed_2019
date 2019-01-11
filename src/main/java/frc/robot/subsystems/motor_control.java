@@ -37,7 +37,7 @@ public class motor_control extends Subsystem {
     setDefaultCommand(new baseCommand());
   }
 
-  public void setupMotors(){
+  public static void setupMotors(){
     mainControl = new DifferentialDrive(leftMotor, rightMotor);
 
     leftMotor = RobotMap.leftMotor;
@@ -45,6 +45,8 @@ public class motor_control extends Subsystem {
   }
 
   public static void control(){
+
+    //parameter of .getRawAxis() may need to be changed to accomodate control preference
     forward = OI.driveController.getRawAxis(1);
     turn = OI.driveController.getRawAxis(2);
     

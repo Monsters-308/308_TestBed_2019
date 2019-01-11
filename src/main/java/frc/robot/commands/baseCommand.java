@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.motor_control;
 
 public class baseCommand extends Command {
   public baseCommand() {
@@ -19,11 +20,13 @@ public class baseCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    motor_control.setupMotors();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    motor_control.control();
   }
 
   // Make this return true when this Command no longer needs to run execute()
