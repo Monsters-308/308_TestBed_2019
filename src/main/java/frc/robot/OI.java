@@ -6,8 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -42,5 +44,10 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  public static XboxController driveController = new XboxController(1);
+  public static Joystick driveController = new Joystick(1);
+  public static Button Button1 = new JoystickButton(driveController, 1);
+  public static Button Button2 = new JoystickButton(driveController, 2);
+  public static Button Button3 = new JoystickButton(driveController, 3);
+  public static Button Button4 = new JoystickButton(driveController, 4);
+  
 }

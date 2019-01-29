@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.commands.baseCommand;
 import frc.robot.OI;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
@@ -38,10 +37,11 @@ public class motor_control extends Subsystem {
   }
 
   public static void setupMotors(){
-    mainControl = new DifferentialDrive(leftMotor, rightMotor);
-
     leftMotor = RobotMap.leftMotor;
     rightMotor = RobotMap.rightMotor;
+    
+    mainControl = new DifferentialDrive(leftMotor, rightMotor);
+
   }
 
   public static void control(){

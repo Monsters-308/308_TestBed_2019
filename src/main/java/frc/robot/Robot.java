@@ -7,7 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -28,6 +31,7 @@ public class Robot extends TimedRobot {
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+  public int testloop = 0;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -127,5 +131,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    if(testloop++ > 50){
+      SmartDashboard.putNumber("Joystick X value", OI.driveController.getRawAxis(0));
+      SmartDashboard.putNumber("Joystick Y value", OI.driveController.getRawAxis(1));
+      SmartDashboard.putNumber("Joystick Z value", OI.driveController.getRawAxis(2));
+      SmartDashboard.putNumber("MCTwist", OI.driveController.getRawAxis(3));
+      SmartDashboard.putBoolean("Button 1", OI.Button1.get());
+      SmartDashboard.putBoolean("Button 2", OI.Button2.get());
+      SmartDashboard.putBoolean("Button 3", OI.Button3.get());
+      SmartDashboard.putBoolean("Button 4", OI.Button4.get());
+      CameraServer.getInstance().startAutomaticCapture();
+      System.out.println("Test");
+      testloop = 0;
+
+    }
   }
 }
