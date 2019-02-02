@@ -7,17 +7,22 @@
 
 package frc.robot;
 
+import java.sql.Driver;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.baseCommand;
 import frc.robot.subsystems.motor_control;
-
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -33,6 +38,15 @@ public class Robot extends TimedRobot {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
   public int testloop = 0;
 
+
+  NetworkTableEntry Distance;
+  NetworkTableEntry VideoTimestamp;
+  NetworkTableEntry cargoDetected;
+  NetworkTableEntry cargoYaw;
+  NetworkTableEntry tapeDetected;
+  NetworkTableEntry tapeYaw;
+  NetworkTableEntry Driver;
+  NetworkTableEntry Tape;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -43,6 +57,17 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", new baseCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable table = inst.getTable("MonsterVision");
+    VideoTimestamp = table.getEntry("VideoTimestamp");
+    cargoDetected= table.getEntry("cargoDetected");
+    cargoYaw = table.getEntry("cargoYaw");
+    tapeDetected = table.getEntry("tapeDetected");
+    tapeYaw = table.getEntry("tapeYaw");
+    Driver = table.getEntry("Driver");
+    Tape = table.getEntry("Tape");
+    Distance = table.getEntry("Distance");
+    Tape.setBoolean(true);
   }
 
   /**
@@ -143,7 +168,32 @@ public class Robot extends TimedRobot {
       CameraServer.getInstance().startAutomaticCapture();
       System.out.println("Test");
       testloop = 0;
-
+      /*double videotimestamp = 0;
+      double cargoyaw = 0;
+      double tapeyaw = 0;
+      boolean driver = false;
+      boolean tape = true;
+      boolean cargodetected = false;
+      boolean tapedetected = false;*/
+      Distance.setDouble(0);
+      VideoTimestamp.setDouble(0);
+      cargoYaw.setDouble(0);
+      tapeYaw.setDouble(0);
+      Driver.setBoolean(false);
+      SmartDashboard.putBoolean("Tape", Tape.getBoolean(false));
+      SmartDashboard.putBoolean("Driver", Driver.getBoolean(false));
+      SmartDashboard.putNumber("Distance", Distance.getDouble(0));
+      SmartDashboard.putNumber("VideoTimestamp", VideoTimestamp.getDouble(0));
+      SmartDashboard.putNumber("cargoYaw", cargoYaw.getDouble(0));
+      SmartDashboard.putBoolean("cargoDetected", cargoDetected.getBoolean(false));
+      SmartDashboard.putBoolean("tapeDetected", tapeDetected.getBoolean(false));
+      SmartDashboard.putNumber("tapeYaw", tapeYaw.getDouble(0));
+      if(OI.driveController.getRawButton(1) == true){
+        Tape.setBoolean(false);
+      } 
+      if(OI.driveController.getRawButton(2)){ 
+        Tape.setBoolean(true);
+      }  
     }
   }
 }
