@@ -168,13 +168,6 @@ public class Robot extends TimedRobot {
       CameraServer.getInstance().startAutomaticCapture();
       System.out.println("Test");
       testloop = 0;
-      /*double videotimestamp = 0;
-      double cargoyaw = 0;
-      double tapeyaw = 0;
-      boolean driver = false;
-      boolean tape = true;
-      boolean cargodetected = false;
-      boolean tapedetected = false;*/
       Distance.setDouble(0);
       VideoTimestamp.setDouble(0);
       cargoYaw.setDouble(0);
@@ -191,7 +184,7 @@ public class Robot extends TimedRobot {
       if(OI.driveController.getRawButton(1) == true){
         Tape.setBoolean(false);
       } 
-      if(OI.driveController.getRawButton(2)){ 
+      if(OI.driveController.getRawButton(2) == true){ 
         Tape.setBoolean(true);
       }  
     }
